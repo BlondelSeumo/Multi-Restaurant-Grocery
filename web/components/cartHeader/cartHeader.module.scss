@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 30px;
+  @media (max-width: 1139px) {
+    padding-top: 16px;
+  }
+  .title {
+    margin: 0;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    color: var(--black);
+    @media (max-width: 1139px) {
+      font-size: 18px;
+      line-height: 22px;
+    }
+  }
+  .trashBtn {
+    padding: 0 5px;
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--black);
+    }
+  }
+}

@@ -1,0 +1,121 @@
+.container {
+  background-color: var(--secondary-bg);
+}
+.header {
+  // position: sticky;
+  top: 0;
+  z-index: 11;
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 78px;
+    border-bottom: 1px solid var(--border);
+  }
+  .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    .actions {
+      border: none;
+      padding: 0;
+    }
+  }
+  .navItem {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    column-gap: 22px;
+    // padding: 0 22px;
+    &:first-child {
+      padding-left: 0;
+    }
+    &:last-child {
+      border-right: 0;
+      padding-right: 0;
+    }
+    .brandLogo {
+      display: block;
+      transform: translateX(50%);
+      svg {
+        fill: var(--dark-blue);
+      }
+    }
+    .menuBtn {
+      padding: 10px 25px;
+      position: relative;
+      font-size: 0;
+      cursor: pointer;
+      &::after,
+      &::before {
+        content: "";
+        position: absolute;
+        left: 5px;
+        width: 40px;
+        height: 2px;
+        background-color: var(--black);
+      }
+      &::after {
+        bottom: 5px;
+      }
+      &::before {
+        top: 5px;
+      }
+    }
+  }
+  .searchBar {
+    flex-grow: 1;
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    padding: 0 20px;
+    border-right: 1px solid var(--grey);
+    .iconBtn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      svg {
+        width: 24px;
+        height: 24px;
+        transition: all 0.2s;
+      }
+      // &:hover {
+      //   svg {
+      //     fill: var(--primary);
+      //   }
+      // }
+    }
+  }
+  .loginBtn {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    padding: 0;
+    .text {
+      font-size: 18px;
+      line-height: 25px;
+      font-weight: 500;
+      color: var(--dark-blue);
+    }
+  }
+}
+
+[dir="rtl"] {
+  .header {
+    .navItem {
+      &:first-child {
+        border-right: 0;
+        padding-left: 30px;
+        padding-right: 0;
+      }
+      &:last-child {
+        border-right: 1px solid var(--grey);
+        padding-right: 30px;
+        padding-left: 0;
+      }
+    }
+  }
+}

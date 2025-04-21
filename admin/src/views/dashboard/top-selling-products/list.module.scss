@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .main {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+
+      .title {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17.07px;
+        letter-spacing: 0;
+        color: var(--black);
+      }
+    }
+
+    .sales {
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 17.07px;
+      letter-spacing: 0;
+      color: rgba(142, 149, 169, 1);
+    }
+  }
+}

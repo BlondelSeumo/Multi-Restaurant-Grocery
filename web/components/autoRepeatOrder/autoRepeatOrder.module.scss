@@ -1,0 +1,35 @@
+.wrapper {
+  position: relative;
+  min-width: 430px;
+  max-width: 532px;
+  padding: 30px;
+  @media (max-width: 1139px) {
+    min-width: 100%;
+    max-width: 100%;
+    padding: 10px 0;
+    max-height: 80vh;
+  }
+
+  .title {
+    margin: 0 0 34px;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    color: var(--dark-blue);
+    @media (max-width: 576px) {
+      font-size: 18px;
+    }
+  }
+  .body {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 30px;
+    margin-bottom: 20px;
+    .item {
+      min-width: 100%;
+    }
+  }
+}

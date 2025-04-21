@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  color: var(--dark-blue);
+  &:hover {
+    opacity: 0.8;
+  }
+  .text {
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 600;
+    color: var(--dark-blue);
+  }
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+}

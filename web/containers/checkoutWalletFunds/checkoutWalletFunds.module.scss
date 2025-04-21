@@ -1,0 +1,54 @@
+.container {
+  width: 100%;
+  border: 2px solid var(--primary);
+  border-radius: 10px;
+  padding: 25px;
+
+  .wallet {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    .price {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      span {
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--black);
+      }
+      .image {
+        width: 24px;
+        height: 24px;
+
+        img {
+          object-fit: contain;
+        }
+      }
+    }
+    .description {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--black);
+      word-break: break-all;
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+
+    .text {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--black);
+      flex: 1;
+      word-break: break-all;
+    }
+  }
+}

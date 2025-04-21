@@ -1,0 +1,103 @@
+.container {
+  position: sticky;
+  top: 0;
+  z-index: 11;
+  background-color: var(--secondary-bg);
+  padding: 12px 0;
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    column-gap: 30px;
+    .navbar {
+      display: flex;
+      margin: 0;
+      padding: 8px;
+      list-style-type: none;
+      border-radius: 10px;
+      background-color: var(--primary-bg);
+      .navItem {
+        position: relative;
+        .navLink {
+          display: flex;
+          align-items: center;
+          column-gap: 6px;
+          height: 100%;
+          padding: 12px 20px;
+          transition: all 0.2s;
+          border-radius: 10px;
+          &.active {
+            box-shadow: var(--nav-link-box-shadow);
+            background-color: var(--secondary-bg);
+          }
+          .navImgWrapper {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            overflow: hidden;
+          }
+          .text {
+            font-size: 18px;
+            line-height: 22px;
+            font-weight: 500;
+            color: var(--black);
+            white-space: nowrap;
+          }
+        }
+        .btn {
+          display: flex;
+          align-items: center;
+          column-gap: 8px;
+          padding: 12px 20px;
+          transition: all 0.2s;
+          border-radius: 10px;
+          &.active {
+            box-shadow: var(--nav-link-box-shadow);
+            background-color: var(--secondary-bg);
+          }
+          svg {
+            fill: var(--black);
+            width: 20px;
+            height: 20px;
+          }
+          .text {
+            font-size: 18px;
+            line-height: 22px;
+            font-weight: 500;
+            color: var(--black);
+          }
+        }
+      }
+    }
+    .actions {
+      display: flex;
+      column-gap: 20px;
+      border-radius: 10px;
+      background-color: var(--primary-bg);
+      .btn {
+        display: flex;
+        align-items: center;
+        column-gap: 8px;
+        padding: 12px 18px;
+        transition: all 0.2s;
+        border-radius: 10px;
+        &.active {
+          box-shadow: var(--nav-link-box-shadow);
+          background-color: var(--secondary-bg);
+        }
+        svg {
+          fill: var(--black);
+          width: 18px;
+          height: 18px;
+        }
+        .text {
+          font-size: 14px;
+          line-height: 17px;
+          font-weight: 400;
+          color: var(--black);
+        }
+      }
+    }
+  }
+}

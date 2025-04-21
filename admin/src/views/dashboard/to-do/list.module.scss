@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid rgba(226, 232, 240, 1);
+
+    .main {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+
+      .checkbox {
+        width: 15px;
+        height: 15px;
+        border: 1px solid rgba(243, 242, 247, 1);
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.checked {
+          border-color: rgba(102, 192, 255, 1);
+          background-color: rgba(102, 192, 255, 1);
+          color: #fff;
+          svg {
+            width: 11px;
+            height: 11px;
+          }
+        }
+      }
+
+      .text {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17.07px;
+        letter-spacing: 0;
+        color: var(--black);
+      }
+    }
+
+    .delete {
+      width: 15px;
+      height: 15px;
+      color: var(--red);
+
+      svg {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+}

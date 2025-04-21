@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .item {
+    flex: 1;
+    height: 100%;
+    padding: 30px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 38px 0 rgba(0, 158, 247, 0.04);
+  }
+
+  .orderStatisticsOverviewContainer {
+    display: grid;
+    grid-template-columns: 65% auto;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .topSellingProductsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: flex-start;
+    gap: 20px;
+  }
+}

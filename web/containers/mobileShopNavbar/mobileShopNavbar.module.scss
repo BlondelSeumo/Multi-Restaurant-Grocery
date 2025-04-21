@@ -1,0 +1,53 @@
+.container {
+  // position: sticky;
+  top: 70px;
+  z-index: 10;
+  background-color: var(--secondary-bg);
+  padding: 10px 0 12px;
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    .showAllBtn {
+      display: flex;
+      align-items: center;
+      column-gap: 5px;
+      .text {
+        font-size: 16px;
+        line-height: 19px;
+        font-weight: 600;
+        color: var(--black);
+      }
+      svg {
+        width: 16px;
+        height: 16px;
+        fill: var(--black);
+      }
+    }
+    .actions {
+      display: flex;
+      column-gap: 20px;
+      .btn {
+        display: flex;
+        align-items: center;
+        column-gap: 6px;
+        padding: 12px 20px;
+        transition: all 0.2s;
+        border-radius: 200px;
+        background-color: var(--primary-bg);
+        svg {
+          fill: var(--black);
+          width: 18px;
+          height: 18px;
+        }
+        .text {
+          font-size: 14px;
+          line-height: 17px;
+          font-weight: 500;
+          color: var(--black);
+        }
+      }
+    }
+  }
+}

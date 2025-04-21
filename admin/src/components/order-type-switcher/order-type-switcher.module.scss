@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--primary-light);
+  border-radius: 8px;
+  overflow: hidden;
+
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 13px 10px;
+
+    &.active {
+      background-color: var(--primary-light);
+      color: #fff;
+
+      svg {
+        color: #fff;
+      }
+
+      .title {
+        color: #fff;
+      }
+    }
+
+    .title {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 12px;
+      color: var(--text);
+      height: 12px;
+    }
+
+    svg {
+      color: var(--text);
+    }
+  }
+}

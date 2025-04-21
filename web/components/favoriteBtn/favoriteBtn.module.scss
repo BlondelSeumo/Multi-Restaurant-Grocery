@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  padding: 6px;
+  top: 100px;
+  right: 20px;
+  z-index: 2;
+  border-radius: 50%;
+  transition: all 0.2s;
+  &:hover {
+    background-color: var(--grey);
+  }
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+  @media (width < 1140px) {
+    top: -5px;
+    right: 40px;
+  }
+}

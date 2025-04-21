@@ -1,0 +1,19 @@
+.container {
+  z-index: 14;
+  margin: 0;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 4px 60px 0 var(--primary);
+  background-color: var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  svg {
+    fill: #fff;
+  }
+}

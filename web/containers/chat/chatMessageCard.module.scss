@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  align-items: flex-end;
+
+  &.sender {
+    justify-content: flex-end;
+  }
+}
+
+.popover {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 5px;
+}

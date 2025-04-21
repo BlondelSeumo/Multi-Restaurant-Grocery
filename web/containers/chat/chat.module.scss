@@ -1,0 +1,28 @@
+.container {
+  height: 100%;
+  padding-top: 25px;
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--black);
+    padding: 0 30px 25px;
+    margin: 0;
+    border-bottom: 1px solid var(--border-color);
+
+    @media (max-width: 640px) {
+      font-size: 20px;
+      padding: 0 15px 25px;
+    }
+  }
+
+  @media (max-width: 576px) {
+   padding-top: 15px;
+
+    .title {
+      padding: 0 15px 15px;
+    }
+  }
+}

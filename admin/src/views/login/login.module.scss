@@ -1,0 +1,39 @@
+.loginContainer {
+  height: 100vh;
+  background-color: #ffffff !important;
+  background-image: url('../../assets/images/17.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+
+  .appBrand {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100px;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .brandLogo {
+      width: 100%;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+  }
+
+  .loginFormButton {
+    width: 100%;
+  }
+
+  .copyLink {
+    display: block;
+    width: 100%;
+  }
+}
+
+

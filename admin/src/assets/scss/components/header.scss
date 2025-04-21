@@ -1,0 +1,78 @@
+.header {
+  width: 100%;
+  padding: 15px 20px;
+  box-shadow: 0 10px 30px 0 #7979a21a;
+  display: flex;
+  justify-content: flex-end;
+  background-color: var(--anchor-wrapper-bg);
+  margin-bottom: 20px;
+
+  .wrapper {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.themeChanger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.languageChanger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  .text {
+    display: block;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 12px;
+    letter-spacing: -0.3px;
+    text-transform: uppercase;
+  }
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+
+    .fullName {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 14px;
+      letter-spacing: -0.3px;
+      margin-bottom: 2px;
+      text-align: center;
+    }
+
+    .role {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 14px;
+      letter-spacing: -0.3px;
+      color: #898989;
+      text-align: center;
+    }
+  }
+}

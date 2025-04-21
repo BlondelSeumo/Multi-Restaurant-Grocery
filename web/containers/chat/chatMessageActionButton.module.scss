@@ -1,0 +1,24 @@
+.container {
+  padding: 8px 12px;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 10px;
+  &:hover {
+    background-color: rgb(239, 239, 239);
+    [data-theme="dark"] & {
+        background-color: var(--primary-bg);
+    }
+  }
+  &.active {
+    background-color: rgb(239, 239, 239);
+  }
+  &.danger {
+    color: var(--red);
+
+    svg {
+      fill: var(--red);
+    }
+  }
+}

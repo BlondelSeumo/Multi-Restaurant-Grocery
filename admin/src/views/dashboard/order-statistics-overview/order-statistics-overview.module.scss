@@ -1,0 +1,44 @@
+.container {
+  .title {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19.5px;
+    letter-spacing: 0;
+    margin-bottom: 2px;
+  }
+  .filter {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+  .totalOrdersContainer {
+    margin-bottom: 30px;
+    .numberContainer {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 7px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+        color: rgba(208, 214, 222, 1);
+      }
+
+      .number {
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24.38px;
+        letter-spacing: 0;
+        color: var(--primary);
+      }
+    }
+    .text {
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 14.63px;
+      letter-spacing: 0;
+      color: rgba(142, 149, 169, 1);
+    }
+  }
+}

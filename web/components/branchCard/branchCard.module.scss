@@ -1,0 +1,55 @@
+.wrapper {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  .header {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-bottom: 17px;
+    .imageWrapper {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .naming {
+      width: 140px;
+      .title {
+        font-size: 18px;
+        line-height: 22px;
+        font-weight: 500;
+        margin-top: 0;
+        margin-bottom: 2px;
+      }
+      .desc {
+        font-size: 12px;
+        line-height: 16px;
+        color: var(--secondary-text);
+        margin: 0;
+      }
+    }
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+    .flexItem {
+      flex: 0 0 50%;
+      display: flex;
+      align-items: center;
+      column-gap: 6px;
+      svg {
+        fill: var(--orange);
+      }
+      .text {
+        font-size: 12px;
+        line-height: 15px;
+        font-weight: 500;
+      }
+    }
+  }
+}

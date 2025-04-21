@@ -1,0 +1,37 @@
+.wrapper {
+  position: relative;
+  width: calc(100vw - 100px);
+  padding: 30px;
+  @media (max-width: 576px) {
+    width: 100%;
+    padding: 16px;
+  }
+  .header {
+    margin-bottom: 24px;
+    .title {
+      margin: 0;
+      font-size: 25px;
+      line-height: 30px;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      color: var(--dark-blue);
+      @media (max-width: 576px) {
+        font-size: 20px;
+      }
+    }
+  }
+  .imgWrapper {
+    display: block;
+    position: relative;
+    padding-top: 65%;
+    overflow: hidden;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 1/1;
+    @media (max-width: 576px) {
+      height: 183px;
+      aspect-ratio: auto;
+    }
+  }
+}

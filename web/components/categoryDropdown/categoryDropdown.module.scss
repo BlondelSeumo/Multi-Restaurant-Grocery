@@ -1,0 +1,29 @@
+.wrapper {
+  min-width: 200px;
+  padding: 16px 30px;
+  .link {
+    display: flex;
+    align-items: center;
+    column-gap: 6px;
+    padding: 12px 0;
+    opacity: 1;
+    transition: all 0.2s;
+    .navImgWrapper {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .text {
+      font-size: 16px;
+      line-height: 19px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--black);
+    }
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}

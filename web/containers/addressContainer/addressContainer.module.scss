@@ -1,0 +1,127 @@
+.address {
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+  cursor: pointer;
+  div {
+    pointer-events: none;
+  }
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+  .icon {
+    width: 18px;
+    height: 18px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  .text {
+    max-width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+  }
+}
+
+.addressWrapper {
+  max-width: 400px;
+  max-height: 400px;
+  overflow-y: auto;
+
+  @media (max-width: 1139px) {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .list {
+    .radioGroup {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      width: 100%;
+      padding: 16px 8px;
+      border-bottom: 1px solid var(--grey);
+      overflow: hidden;
+      justify-content: space-between;
+      &:hover {
+        background-color: var(--grey);
+      }
+
+      .radio {
+        display: flex;
+        align-items: center;
+
+        .text {
+          max-width: 290px;
+          font-size: 16px;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+
+          &.twoLine {
+            -webkit-line-clamp: 2;
+          }
+        }
+
+        .desc {
+          font-size: 14px;
+          color: var(--secondary-text);
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      }
+
+      .actionBtns {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        .edit {
+          cursor: pointer;
+          opacity: 0;
+          transition: all 0.2s linear;
+        }
+        .delete {
+          cursor: pointer;
+          opacity: 0;
+          transition: all 0.2s linear;
+        }
+      }
+
+      &:hover {
+        .actionBtns {
+          .edit {
+            opacity: 1;
+          }
+          .delete {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  .add {
+    min-width: 300px;
+    padding: 16px;
+    width: 100%;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    &:hover {
+      background-color: var(--grey);
+    }
+  }
+}

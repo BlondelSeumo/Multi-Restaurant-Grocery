@@ -1,0 +1,14 @@
+@media print {
+  .container {
+    margin-top: 0;
+    * {
+      overflow: unset;
+    }
+    .buttons {
+      display: none;
+    }
+  }
+  .buttons {
+    display: none;
+  }
+}

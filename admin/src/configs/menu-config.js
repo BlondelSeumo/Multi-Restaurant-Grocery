@@ -1,0 +1,1191 @@
+const managerExcludeIds = [
+  'discounts',
+  'main_branch',
+  'branch_galleries',
+  'reservation_management',
+  'coupons',
+  'bonuses',
+];
+
+const filterRoutes = (routes, excludeIds) => {
+  return routes
+    .filter((route) => !excludeIds.includes(route.id))
+    .map((route) => {
+      const newRoute = { ...route };
+
+      // Handle menus in group type routes
+      if (newRoute.menus) {
+        newRoute.menus = filterRoutes(newRoute.menus, excludeIds);
+      }
+
+      // Handle children in parent type routes
+      if (newRoute.children) {
+        newRoute.children = filterRoutes(newRoute.children, excludeIds);
+      }
+
+      return newRoute;
+    });
+};
+
+const adminRoutes = [
+  {
+    name: 'dashboard',
+    icon: 'dashboard',
+    url: 'dashboard',
+    id: 'dashboard',
+    type: 'single',
+  },
+  {
+    name: 'pos',
+    icon: 'pos',
+    url: 'pos-system',
+    id: 'pos',
+    type: 'single',
+  },
+  {
+    name: 'order.management',
+    id: 'order_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'orders',
+        id: 'orders',
+        icon: 'orders',
+        type: 'parent',
+        children: [
+          {
+            name: 'all',
+            url: 'orders',
+            id: 'all_orders',
+            type: 'single',
+            parentId: 'orders',
+          },
+          {
+            name: 'delivery.orders',
+            url: 'orders/delivery',
+            id: 'delivery_orders',
+            type: 'single',
+            parentId: 'orders',
+          },
+          {
+            name: 'pickup.orders',
+            url: 'orders/pickup',
+            id: 'pickup_orders',
+            type: 'single',
+            parentId: 'orders',
+          },
+          {
+            name: 'dine.in.orders',
+            url: 'orders/dine_in',
+            id: 'dine_in_orders',
+            type: 'single',
+            parentId: 'orders',
+          },
+          {
+            name: 'scheduled.orders',
+            url: 'orders/scheduled',
+            id: 'scheduled_orders',
+            type: 'single',
+            parentId: 'orders',
+          },
+          {
+            name: 'refunds',
+            url: 'refunds',
+            id: 'refunds',
+            type: 'single',
+            parentId: 'orders',
+          },
+        ],
+      },
+      {
+        name: 'order.statuses',
+        id: 'order_statuses',
+        icon: 'order_statuses',
+        url: 'settings/orderStatus',
+        type: 'single',
+      },
+      {
+        name: 'order.reviews',
+        icon: 'order_reviews',
+        url: 'reviews/order',
+        id: 'order_reviews',
+        type: 'single',
+      },
+    ],
+  },
+  {
+    name: 'product.management',
+    id: 'product_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'brands',
+        id: 'brands',
+        icon: 'brands',
+        url: 'catalog/brands',
+        type: 'single',
+      },
+      {
+        name: 'units',
+        id: 'units',
+        icon: 'units',
+        url: 'catalog/units',
+        type: 'single',
+      },
+      {
+        name: 'products',
+        id: 'products',
+        icon: 'products',
+        type: 'parent',
+        children: [
+          {
+            name: 'product.categories',
+            id: 'product_categories',
+            url: 'catalog/categories',
+            type: 'single',
+            parentId: 'products',
+          },
+          {
+            name: 'product.list',
+            id: 'product_list',
+            url: 'catalog/products',
+            type: 'single',
+            parentId: 'products',
+          },
+          // {
+          //   name: 'product.reviews',
+          //   url: 'reviews/product',
+          //   id: 'product_review',
+          //   type: 'single',
+          //   parentId: 'products',
+          // },
+        ],
+      },
+      {
+        name: 'addons',
+        icon: 'addons',
+        url: 'catalog/addons',
+        id: 'addons',
+        type: 'single',
+      },
+      {
+        name: 'extras',
+        id: 'options',
+        icon: 'options',
+        type: 'parent',
+        children: [
+          {
+            name: 'extra.groups',
+            url: 'catalog/extras',
+            id: 'option_group',
+            type: 'single',
+            parentId: 'options',
+          },
+          {
+            name: 'extra.values',
+            url: 'catalog/extras/value',
+            id: 'option_value',
+            type: 'single',
+            parentId: 'options',
+          },
+        ],
+      },
+      {
+        name: 'discounts',
+        icon: 'discounts',
+        url: 'catalog/discounts',
+        id: 'discounts',
+        type: 'single',
+      },
+      {
+        name: 'recipes',
+        id: 'recipes',
+        icon: 'recipes',
+        type: 'parent',
+        children: [
+          {
+            name: 'recipe.categories',
+            url: 'recipes/categories',
+            id: 'recipe_categories',
+            type: 'single',
+            parentId: 'recipes',
+          },
+          {
+            name: 'recipe.list',
+            url: 'recipes/list',
+            id: 'recipe_list',
+            type: 'single',
+            parentId: 'recipes',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'branch.management',
+    id: 'branch_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'main.branch',
+        id: 'main_branch',
+        icon: 'main_branch',
+        url: 'my-branch',
+        type: 'single',
+      },
+      {
+        name: 'branch.list',
+        id: 'branch_list',
+        icon: 'branch_list',
+        url: 'branches',
+        type: 'single',
+      },
+      {
+        name: 'branch.galleries',
+        id: 'branch_galleries',
+        icon: 'gallery',
+        url: 'my-branch-galleries',
+        type: 'single',
+      },
+      {
+        name: 'kitchen.list',
+        id: 'kitchen_list',
+        icon: 'kitchen_list',
+        url: 'kitchen',
+        type: 'single',
+      },
+    ],
+  },
+  {
+    name: 'reservation.management',
+    id: 'reservation_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'reservation.set.up',
+        id: 'reservation_set_up',
+        icon: 'reservation_set_up',
+        type: 'parent',
+        children: [
+          {
+            name: 'reservation.zones',
+            id: 'reservation_zones',
+            url: 'booking/zone',
+            type: 'single',
+            parentId: 'reservation_set_up',
+          },
+          {
+            name: 'tables.&.qr.codes',
+            id: 'tables_and_qr_codes',
+            url: 'booking/tables',
+            type: 'single',
+            parentId: 'reservation_set_up',
+          },
+          {
+            name: 'reservation.time',
+            url: 'booking/time',
+            id: 'reservation_time',
+            type: 'single',
+            parentId: 'reservation_set_up',
+          },
+        ],
+      },
+      {
+        name: 'reservations',
+        id: 'reservations',
+        icon: 'reservations',
+        type: 'parent',
+        children: [
+          {
+            name: 'reservation.list',
+            url: 'booking-list',
+            id: 'reservation_list',
+            type: 'single',
+            parentId: 'reservations',
+          },
+          {
+            name: 'new.reservation',
+            url: 'booking',
+            id: 'new_reservation',
+            type: 'single',
+            parentId: 'reservations',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'content.management',
+    id: 'content_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'stories',
+        icon: 'stories',
+        url: 'stories',
+        id: 'stories',
+        type: 'single',
+      },
+      {
+        name: 'blogs',
+        url: 'blogs',
+        icon: 'blogs',
+        id: 'blogs',
+        type: 'single',
+      },
+      {
+        name: 'gallery',
+        url: 'gallery',
+        icon: 'gallery',
+        id: 'gallery',
+        type: 'single',
+      },
+      {
+        name: 'careers',
+        icon: 'careers',
+        id: 'careers',
+        type: 'parent',
+        children: [
+          {
+            name: 'career.categories',
+            url: 'catalog/career-categories',
+            id: 'career_categories',
+            type: 'single',
+            parentId: 'careers',
+          },
+          {
+            name: 'career.list',
+            url: 'catalog/career',
+            id: 'career_list',
+            type: 'single',
+            parentId: 'careers',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'promotion.management',
+    id: 'promotion_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'banners',
+        icon: 'banners',
+        url: 'banners',
+        id: 'banners',
+        type: 'single',
+      },
+      {
+        name: 'notifications',
+        url: 'notifications',
+        id: 'notifications',
+        icon: 'notifications',
+        type: 'single',
+      },
+      {
+        id: 'coupons',
+        type: 'single',
+        name: 'coupons',
+        icon: 'coupons',
+        url: 'coupons',
+      },
+      {
+        id: 'referral',
+        type: 'single',
+        icon: 'referral',
+        url: 'settings/referal',
+        name: 'referral',
+      },
+      {
+        name: 'bonuses',
+        icon: 'bonuses',
+        id: 'bonuses',
+        type: 'parent',
+        children: [
+          // {
+          //   name: 'bonus.list',
+          //   url: 'bonus/list',
+          //   id: 'bonus_list',
+          //   icon: 'bonus_list',
+          //   type: 'single',
+          //   parentId: 'bonuses',
+          // },
+          {
+            name: 'branch.bonus',
+            url: 'seller/bonus/shop',
+            id: 'branch_bonus',
+            icon: 'branch.bonus',
+            type: 'single',
+            parentId: 'bonuses',
+          },
+          {
+            name: 'product.bonus',
+            url: 'seller/bonus/product',
+            id: 'product_bonus',
+            icon: 'product_bonus',
+            type: 'single',
+            parentId: 'bonuses',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'user.management',
+    id: 'user_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'customers',
+        url: 'users/user',
+        id: 'customers',
+        icon: 'customers',
+        type: 'single',
+      },
+      {
+        name: 'staff.&.admin.users',
+        url: 'users/admin',
+        id: 'staff_and_admin_users',
+        icon: 'staff_and_admin_users',
+        type: 'single',
+      },
+      {
+        name: 'deliverymen',
+        url: 'deliveries',
+        id: 'deliverymen',
+        icon: 'deliverymen',
+        type: 'parent',
+        children: [
+          {
+            name: 'deliverymen.list',
+            id: 'deliverymen_list',
+            url: 'deliveries/list',
+            type: 'single',
+            parentId: 'deliverymen',
+          },
+          {
+            name: 'deliverymen.map',
+            id: 'deliverymen_map',
+            url: 'deliveries/map',
+            type: 'single',
+            parentId: 'deliverymen',
+          },
+          {
+            name: 'deliverymen.statistics',
+            id: 'deliverymen_statistics',
+            url: 'delivery/statistics',
+            type: 'single',
+            parentId: 'deliverymen',
+          },
+          {
+            name: 'deliverymen.reviews',
+            url: 'reviews/deliveryboy',
+            id: 'deliverymen_reviews',
+            type: 'single',
+            parentId: 'deliverymen',
+          },
+        ],
+      },
+      {
+        name: 'wallets',
+        url: 'wallets',
+        id: 'wallets',
+        icon: 'wallets',
+        type: 'parent',
+        children: [
+          {
+            name: 'user.wallets',
+            url: 'wallets/list',
+            id: 'user_wallets',
+            type: 'single',
+            parentId: 'wallets',
+          },
+          {
+            name: 'add.funds',
+            url: 'wallets/add-funds',
+            id: 'add_funds',
+            type: 'single',
+            parentId: 'wallets',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'transaction.management',
+    id: 'transaction_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'transactions',
+        icon: 'transactions',
+        url: 'transactions',
+        id: 'transactions',
+        type: 'single',
+      },
+      {
+        name: 'seller.payments',
+        icon: 'seller_payments',
+        id: 'seller_payments',
+        url: 'payments/sellers',
+        type: 'parent',
+        children: [
+          {
+            name: 'info',
+            url: 'withdraws/seller',
+            id: 'seller_info',
+            type: 'single',
+            parentId: 'seller_payments',
+          },
+          {
+            name: 'completed.payments',
+            url: 'completed-withdraws/seller',
+            id: 'seller_completed_payments',
+            type: 'single',
+            parentId: 'seller_payments',
+          },
+        ],
+      },
+      {
+        name: 'deliveryman.payments',
+        icon: 'deliveryman_payments',
+        id: 'deliveryman_payments',
+        url: 'payments/deliverymans',
+        type: 'parent',
+        children: [
+          {
+            name: 'info',
+            url: 'withdraws/deliveryman',
+            id: 'deliveryman_info',
+            type: 'single',
+            parentId: 'deliveryman_payments',
+          },
+          {
+            name: 'completed.payments',
+            url: 'completed-withdraws/deliveryman',
+            id: 'deliveryman_completed_payments',
+            type: 'single',
+            parentId: 'deliveryman_payments',
+          },
+        ],
+      },
+      {
+        name: 'payout.requests',
+        icon: 'payout_requests',
+        url: 'payout-requests',
+        id: 'payout_requests',
+        type: 'single',
+      },
+      {
+        name: 'payouts',
+        icon: 'payouts',
+        url: 'payouts',
+        id: 'payouts',
+        type: 'single',
+      },
+    ],
+  },
+  {
+    name: 'report.&.analytics',
+    id: 'report_and_analytics',
+    type: 'group',
+    menus: [
+      {
+        name: 'overview',
+        icon: 'overview',
+        url: 'report/overview',
+        id: 'overview',
+        type: 'single',
+      },
+      {
+        name: 'revenue.reports',
+        icon: 'revenue_reports',
+        url: 'report/revenue',
+        id: 'revenue_reports',
+        type: 'single',
+      },
+      {
+        name: 'order.reports',
+        icon: 'order_reports',
+        url: 'report/orders',
+        id: 'order_reports',
+        type: 'single',
+      },
+      {
+        name: 'product.reports',
+        icon: 'product_reports',
+        url: 'report/products',
+        id: 'product_reports',
+        type: 'single',
+      },
+      {
+        name: 'stock.reports',
+        icon: 'stock_reports',
+        url: 'report/stock',
+        id: 'stock_reports',
+        type: 'single',
+      },
+      {
+        name: 'category.reports',
+        icon: 'category_reports',
+        url: 'report/categories',
+        id: 'category_reports',
+        type: 'single',
+      },
+      {
+        name: 'extras.reports',
+        icon: 'options_extras_reports',
+        url: 'report/extras',
+        id: 'options_extras_reports',
+        type: 'single',
+      },
+    ],
+  },
+  {
+    name: 'business.settings',
+    id: 'business_settings',
+    type: 'group',
+    menus: [
+      {
+        name: 'general.settings',
+        id: 'general_settings',
+        icon: 'general_settings',
+        url: 'settings/general',
+        type: 'single',
+      },
+      {
+        name: 'currencies',
+        id: 'currencies',
+        icon: 'currencies',
+        url: 'currencies',
+        type: 'single',
+      },
+      {
+        name: 'payments',
+        id: 'payments',
+        icon: 'payments',
+        type: 'parent',
+        children: [
+          {
+            name: 'payment.methods',
+            id: 'payment_methods',
+            url: 'settings/payments',
+            type: 'single',
+            parentId: 'payments',
+          },
+          {
+            name: 'payment.payloads',
+            id: 'payment_payloads',
+            url: 'payment-payloads',
+            type: 'single',
+            parentId: 'payments',
+          },
+        ],
+      },
+      {
+        name: 'notification.settings',
+        id: 'notification_settings',
+        icon: 'notification_settings',
+        type: 'parent',
+        children: [
+          {
+            name: 'firebase.configuration',
+            id: 'firebase_configuration',
+            url: 'settings/firebase',
+            type: 'single',
+            parentId: 'notification_settings',
+          },
+          {
+            name: 'sms.provider',
+            id: 'sms_provider',
+            url: 'settings/sms-payload',
+            type: 'single',
+            parentId: 'notification_settings',
+          },
+          {
+            name: 'email.provider',
+            id: 'email_provider',
+            url: 'settings/emailProviders',
+            type: 'single',
+            parentId: 'notification_settings',
+          },
+          {
+            name: 'email.templates',
+            id: 'email_templates',
+            url: 'message/subscriber',
+            type: 'single',
+            parentId: 'notification_settings',
+          },
+          {
+            name: 'subscribers',
+            id: 'subscribers',
+            url: 'subscriber',
+            type: 'single',
+            parentId: 'notification_settings',
+          },
+        ],
+      },
+      {
+        name: 'social.settings',
+        id: 'social_settings',
+        icon: 'social_settings',
+        url: 'settings/social',
+        type: 'single',
+      },
+      {
+        name: 'app.settings',
+        id: 'app_settings',
+        icon: 'app_settings',
+        url: 'settings/app',
+        type: 'single',
+      },
+      {
+        name: 'page.setup',
+        id: 'page_setup',
+        icon: 'page_setup',
+        url: 'page_setup',
+        type: 'parent',
+        children: [
+          {
+            name: 'faq',
+            id: 'faq',
+            url: 'settings/faqs',
+            type: 'single',
+            parentId: 'page_setup',
+          },
+          {
+            name: 'terms.&.conditions',
+            id: 'temrs_and_conditions',
+            url: 'settings/terms',
+            type: 'single',
+            parentId: 'page_setup',
+          },
+          {
+            name: 'privacy.policy',
+            id: 'privacy_policy',
+            url: 'settings/policy',
+            type: 'single',
+            parentId: 'page_setup',
+          },
+          {
+            name: 'custom.pages',
+            id: 'custom_pages',
+            url: 'pages',
+            type: 'single',
+            parentId: 'page_setup',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'system.settings',
+    id: 'system_settings',
+    type: 'group',
+    menus: [
+      {
+        name: 'languages.&.translations',
+        id: 'languages_and_translations',
+        icon: 'languages_and_translations',
+        type: 'parent',
+        children: [
+          {
+            name: 'languages',
+            id: 'languages',
+            url: 'settings/languages',
+            type: 'single',
+            parentId: 'languages_and_translations',
+          },
+          {
+            name: 'translations',
+            id: 'translations',
+            url: 'settings/translations',
+            type: 'single',
+            parentId: 'languages_and_translations',
+          },
+        ],
+      },
+      {
+        name: 'backup.&.maintenance',
+        id: 'backup_and_maintenance',
+        icon: 'backup_and_maintenance',
+        type: 'parent',
+        children: [
+          {
+            name: 'backup',
+            id: 'backup',
+            url: 'settings/backup',
+            type: 'single',
+            parentId: 'backup_and_maintenance',
+          },
+          {
+            name: 'clear.cash',
+            id: 'clear_cash',
+            url: 'settings/cashClear',
+            type: 'single',
+            parentId: 'backup_and_maintenance',
+          },
+        ],
+      },
+      {
+        name: 'system.information',
+        id: 'system_information',
+        icon: 'system_information',
+        url: 'settings/system-information',
+        type: 'single',
+      },
+      {
+        name: 'update.database',
+        id: 'update_database',
+        icon: 'update_database',
+        url: 'settings/update',
+        type: 'single',
+      },
+    ],
+  },
+];
+
+const managerRoutes = filterRoutes(adminRoutes, managerExcludeIds);
+
+const sellerRoutes = [
+  {
+    name: 'dashboard',
+    icon: 'dashboard',
+    url: 'dashboard',
+    id: 'dashboard',
+    type: 'single',
+  },
+  {
+    name: 'pos',
+    icon: 'pos',
+    url: 'seller/pos-system',
+    id: 'pos',
+    type: 'single',
+  },
+  {
+    name: 'order.management',
+    id: 'order_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'orders',
+        id: 'orders',
+        icon: 'orders',
+        type: 'parent',
+        children: [
+          {
+            name: 'all',
+            label: 'all',
+            url: 'seller/orders',
+            id: 'all_orders',
+            type: 'single',
+            parentId: 'orders',
+          },
+          {
+            name: 'refunds',
+            url: 'seller/refunds',
+            id: 'refunds',
+            type: 'single',
+            parentId: 'orders',
+          },
+        ],
+      },
+      {
+        name: 'order.reviews',
+        icon: 'order_reviews',
+        url: 'seller/reviews/order',
+        id: 'order_reviews',
+        type: 'single',
+      },
+    ],
+  },
+  {
+    name: 'product.management',
+    id: 'product_management',
+    type: 'group',
+    menus: [
+      // {
+      //   name: 'products',
+      //   id: 'products',
+      //   icon: 'products',
+      //   type: 'parent',
+      //   children: [
+      //     {
+      //       name: 'product.list',
+      //       id: 'product_list',
+      //       url: 'seller/product',
+      //       type: 'single',
+      //       parentId: 'products',
+      //     },
+      //     {
+      //       name: 'product.reviews',
+      //       url: 'seller/reviews/product',
+      //       id: 'product_review',
+      //       type: 'single',
+      //       parentId: 'products',
+      //     },
+      //   ],
+      // },
+      {
+        name: 'product.list',
+        icon: 'products',
+        url: 'seller/product',
+        id: 'product_list',
+        type: 'single',
+      },
+      {
+        name: 'discounts',
+        icon: 'discounts',
+        url: 'seller/discounts',
+        id: 'discounts',
+        type: 'single',
+      },
+    ],
+  },
+  {
+    name: 'branch.management',
+    id: 'branch_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'my.branch',
+        id: 'main_branch',
+        icon: 'main_branch',
+        url: 'my-shop',
+        type: 'single',
+      },
+      {
+        name: 'branch.galleries',
+        id: 'branch_galleries',
+        icon: 'gallery',
+        url: 'seller/galleries',
+        type: 'single',
+      },
+      {
+        name: 'kitchen.list',
+        id: 'kitchen_list',
+        icon: 'kitchen_list',
+        url: 'seller/kitchen',
+        type: 'single',
+      },
+      {
+        name: 'staff.users',
+        url: 'seller/shop-users',
+        id: 'staff_users',
+        icon: 'staff_and_admin_users',
+        type: 'single',
+      },
+    ],
+  },
+  {
+    name: 'reservation.management',
+    id: 'reservation_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'reservation.set.up',
+        id: 'reservation_set_up',
+        icon: 'reservation_set_up',
+        type: 'parent',
+        children: [
+          {
+            name: 'reservation.zones',
+            id: 'reservation_zones',
+            url: 'seller/booking/zone',
+            type: 'single',
+            parentId: 'reservation_set_up',
+          },
+          {
+            name: 'tables.&.qr.codes',
+            id: 'tables_and_qr_codes',
+            url: 'seller/booking/tables',
+            type: 'single',
+            parentId: 'reservation_set_up',
+          },
+          {
+            name: 'reservation.time',
+            url: 'seller/booking/time',
+            id: 'reservation_time',
+            type: 'single',
+            parentId: 'reservation_set_up',
+          },
+        ],
+      },
+      {
+        name: 'reservations',
+        id: 'reservations',
+        icon: 'reservations',
+        type: 'parent',
+        children: [
+          {
+            name: 'reservation.list',
+            url: 'seller/booking-list',
+            id: 'reservation_list',
+            type: 'single',
+            parentId: 'reservations',
+          },
+          {
+            name: 'new.reservation',
+            url: 'seller/booking',
+            id: 'new_reservation',
+            type: 'single',
+            parentId: 'reservations',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'promotion.management',
+    id: 'promotion_management',
+    type: 'group',
+    menus: [
+      {
+        id: 'coupons',
+        type: 'single',
+        name: 'coupons',
+        icon: 'coupons',
+        url: 'coupons',
+      },
+      {
+        name: 'bonuses',
+        icon: 'bonuses',
+        id: 'bonuses',
+        type: 'parent',
+        children: [
+          {
+            name: 'branch.bonus',
+            url: 'seller/bonus/shop',
+            id: 'branch_bonus',
+            icon: 'branch.bonus',
+            type: 'single',
+            parentId: 'bonuses',
+          },
+          {
+            name: 'product.bonus',
+            url: 'seller/bonus/product',
+            id: 'product_bonus',
+            icon: 'product_bonus',
+            type: 'single',
+            parentId: 'bonuses',
+          },
+        ],
+      },
+      {
+        name: 'stories',
+        icon: 'stories',
+        id: 'seller_stories',
+        url: 'seller/stories',
+        type: 'single',
+      },
+    ],
+  },
+  {
+    name: 'transaction.management',
+    id: 'transaction_management',
+    type: 'group',
+    menus: [
+      {
+        name: 'transactions',
+        icon: 'transactions',
+        url: 'seller/transactions',
+        id: 'transactions',
+        type: 'single',
+      },
+      {
+        name: 'payout.requests',
+        icon: 'payout_requests',
+        url: 'seller/withdraws',
+        id: 'payout_requests',
+        type: 'single',
+      },
+      {
+        name: 'payouts',
+        icon: 'payouts',
+        url: 'seller/payouts',
+        id: 'payouts',
+        type: 'single',
+      },
+      {
+        name: 'payment.payloads',
+        icon: 'payments',
+        id: 'payment_payloads',
+        url: 'seller/payments',
+        type: 'single',
+        parentId: 'payments',
+      },
+    ],
+  },
+  {
+    name: 'report.&.analytics',
+    id: 'report_and_analytics',
+    type: 'group',
+    menus: [
+      {
+        name: 'order.reports',
+        icon: 'order_reports',
+        url: 'seller/report/orders',
+        id: 'order_reports',
+        type: 'single',
+      },
+      {
+        name: 'sales.statistics',
+        icon: 'revenue_reports',
+        url: 'seller/report/sales',
+        id: 'sales_statistics',
+        type: 'single',
+      },
+      {
+        name: 'waiter.statistics',
+        icon: 'stock_reports',
+        url: 'seller/report/waiter',
+        id: 'waiter_statistics',
+        type: 'single',
+      },
+    ],
+  },
+];
+
+const deliverymanRoutes = [
+  {
+    name: 'dashboard',
+    icon: 'dashboard',
+    url: 'dashboard',
+    id: 'dashboard',
+    type: 'single',
+  },
+  {
+    name: 'all',
+    icon: 'orders',
+    url: 'deliveryman/orders',
+    id: 'all_orders',
+    type: 'single',
+  },
+  {
+    name: 'payment.from.admin',
+    icon: 'payouts',
+    url: 'deliveryman/withdraws',
+    id: 'payment_from_admin',
+    type: 'single',
+  },
+];
+
+const waiterRoutes = [
+  {
+    name: 'my.orders',
+    icon: 'orders',
+    url: 'waiter/orders',
+    id: 'my_orders',
+    type: 'single',
+  },
+];
+
+export const data = {
+  admin: adminRoutes,
+  manager: managerRoutes,
+  seller: sellerRoutes,
+  moderator: sellerRoutes,
+  deliveryman: deliverymanRoutes,
+  waiter: waiterRoutes,
+};
